@@ -1,6 +1,7 @@
 import git
 import os
 
+
 class GitRepoManager:
     def __init__(self, repo_url, clone_dir):
         """
@@ -19,12 +20,15 @@ class GitRepoManager:
             self.repo = git.Repo(self.clone_dir)
         else:
             if branch:
-                print(f"Cloning branch {branch} from {self.repo_url} to {self.clone_dir}")
-                self.repo = git.Repo.clone_from(self.repo_url, self.clone_dir, branch=branch)
+                print(
+                    f"Cloning branch {branch} from {self.repo_url} to {self.clone_dir}")
+                self.repo = git.Repo.clone_from(
+                    self.repo_url, self.clone_dir, branch=branch)
             else:
-                print(f"Cloning default branch from {self.repo_url} to {self.clone_dir}")
+                print(
+                    f"Cloning default branch from {self.repo_url} to {self.clone_dir}")
                 self.repo = git.Repo.clone_from(self.repo_url, self.clone_dir)
-        
+
         return self.repo
 
     def checkout(self, ref):
@@ -32,7 +36,8 @@ class GitRepoManager:
         Checkout to a specific branch, tag, or commit hash.
         """
         if self.repo is None:
-            raise ValueError("Repository not cloned yet. Use clone_repo() first.")
+            raise ValueError(
+                "Repository not cloned yet. Use clone_repo() first.")
 
         print(f"Checking out to {ref}")
         self.repo.git.checkout(ref)
@@ -42,8 +47,9 @@ class GitRepoManager:
         Fetch all tags in the repository.
         """
         if self.repo is None:
-            raise ValueError("Repository not cloned yet. Use clone_repo() first.")
-        
+            raise ValueError(
+                "Repository not cloned yet. Use clone_repo() first.")
+
         print("Fetching all tags...")
         self.repo.git.fetch('--tags')
 
@@ -52,8 +58,9 @@ class GitRepoManager:
         Get the current commit hash.
         """
         if self.repo is None:
-            raise ValueError("Repository not cloned yet. Use clone_repo() first.")
-        
+            raise ValueError(
+                "Repository not cloned yet. Use clone_repo() first.")
+
         return self.repo.head.commit.hexsha
 
     def pull_latest(self):
@@ -61,18 +68,20 @@ class GitRepoManager:
         Pull the latest changes from the remote repository for the current branch.
         """
         if self.repo is None:
-            raise ValueError("Repository not cloned yet. Use clone_repo() first.")
-        
+            raise ValueError(
+                "Repository not cloned yet. Use clone_repo() first.")
+
         print("Pulling latest changes...")
         self.repo.remotes.origin.pull()
+
 
 # Example usage
 if __name__ == "__main__":
     repo_url = "https://github.com/your-repo.git"
     clone_dir = "/path/to/your/clone"
-    
+
     git_manager = GitRepoManager(repo_url, clone_dir)
-    
+
     # Clone the repository (default branch or a specific branch)
     git_manager.clone_repo(branch="main")  # Replace with your branch if needed
 
