@@ -78,7 +78,7 @@ class GitRepoManager:
 # Example usage
 if __name__ == "__main__":
     repo_url = "https://github.com/your-repo.git"
-    clone_dir = "/path/to/your/clone"
+    clone_dir = "your-repo"
 
     git_manager = GitRepoManager(repo_url, clone_dir)
 
